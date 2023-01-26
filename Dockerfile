@@ -17,8 +17,7 @@ RUN wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-
 WORKDIR /usr/local/tomcat/lib
 RUN wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar
 
-WORKDIR $CATALINA_HOME/webapps/
-ADD WebContent/* $CATALINA_HOME/webapps/
+ADD WebContent/* $CATALINA_HOME/webapps/ROOT/
 
 EXPOSE 8080
 
