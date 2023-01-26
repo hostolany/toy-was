@@ -1,24 +1,24 @@
 pipeline {
     agent any 
     stages {
-        stage('Build') { 
+        stage('Image Build') { 
             steps {
             sh '''
-            echo build
+            sudo docker build -t 192.168.0.91:5000/was:polar .
             '''
             }
         }
-        stage('Test') { 
+        stage('Image Push') { 
             steps {
             sh '''
-            echo test
-            '''    
+            sudo docker push 192.168.0.91:5000/was:polar
+            '''
             }
         }
-        stage('Deploy') { 
+        stage('Kuber Apply') { 
             steps {
             sh '''
-            echo deploy
+            sudo kubectl apply -f was.yml
             '''    
             }
         }
