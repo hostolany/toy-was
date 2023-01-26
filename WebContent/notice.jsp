@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>과제</title>
-  <link rel="stylesheet" href="resources/style.css" />
+  <link rel="stylesheet" href="resource/style.css" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <!-- 	<script type="text/javascript" src="../../inc/js/jquery-1.8.3.min.js"></script> -->
 <!-- 	<script type="text/javascript" src="../../inc/js/lottie.min.js"></script>2019-09-05 : jsì¶ê° -->
