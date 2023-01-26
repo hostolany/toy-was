@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+  namespace: project
+stringData:
+# needs
+  DB_URL: "jdbc:mysql://mysql-svc/testDB"
+  DB_USER: "root"
+  DB_PASSWORD: "1234"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: was-svc
+  namespace: project
+spec:
+  ports:
+  - name: was-svc
+    port: 8080 #Port number of the Service
+    targetPort: 8080  #Port number of container exposed
+    nodePort: 30123
+  selector:
+    app: was   #Service selected pod with tag app: myweb
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: was
+  namespace: project
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: was
+  template:
+    metadata:
+      labels:
+        app: was
+    spec:
+      containers:
+      - image: 192.168.0.91:5000/was:polar
+        imagePullPolicy: Always
+        name: was
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: 1Gi
+        ports:
+        - containerPort: 8080
+        env:
+        - name: db_url
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_URL
+        - name: db_user
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_USER
+        - name: db_password
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PASSWORD
