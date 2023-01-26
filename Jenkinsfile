@@ -4,7 +4,7 @@ pipeline {
         stage('Delete') { 
             steps {
             sh '''
-            sudo kubectl delete -f was.yml -f db.yml
+            sudo kubectl delete -f was.yml
             '''
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Kuber Apply') { 
             steps {
             sh '''
-            sudo kubectl apply -f was.yml -f db.yml
+            sudo kubectl apply -f was.yml
             '''    
             }
         }

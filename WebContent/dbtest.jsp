@@ -4,7 +4,7 @@
 <%
     	Connection conn=null;
     	try{
-            	String Url="jdbc:mysql://db-svc/project";
+            	String Url="jdbc:mysql://db-svc/testDB";
             	String Id="root";
             	String Pass="1234";
  
