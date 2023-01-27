@@ -19,10 +19,9 @@ spec:
   - name: was-svc
     port: 8080 #Port number of the Service
     targetPort: 8080  #Port number of container exposed
-    nodePort: 30123
   selector:
     app: was   #Service selected pod with tag app: myweb
-  type: NodePort
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: ReplicaSet
