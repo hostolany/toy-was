@@ -39,7 +39,7 @@ spec:
         app: was
     spec:
       containers:
-      - image: 192.168.0.91:5000/was:polar
+      - image: 192.168.0.91:5000/was
         imagePullPolicy: Always
         name: was
         resources:
