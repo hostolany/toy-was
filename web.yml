@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+  namespace: project
+spec:
+  selector:
+    app: web
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30321
+  type: NodePort
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-cm
+  namespace: project
+data:
+  default.conf: |
+    server {
+      listen       80;
+      server_name  localhost;
+
+      location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+      }
+      error_page   500 502 503 504  /50x.html;
+      location = /50x.html {
+        root   /usr/share/nginx/html;
+      }
+      # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+      location ~ \.php$ {
+        proxy_pass   http://was-svc:8080;
+      }
+
+      location ~ \.jsp$ {
+        proxy_pass   http://was-svc:8080;
+      }
+    }
+
+---
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: web
+  namespace: project
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:      
+      containers:
+        - name: web
+          image: 192.168.0.91:5000/web
+          volumeMounts:
+          - name: web-conf
+            mountPath: /etc/nginx/conf.d
+          ports:
+          - containerPort: 80
+      volumes:
+      - name: web-conf
+        configMap:
+          name: web-cm
