@@ -5,6 +5,7 @@ pipeline {
             steps {
             sh '''
             sudo kubectl delete -f was.yml
+            sudo kubectl delete -f web.yml
             '''
             }
         }
@@ -26,6 +27,7 @@ pipeline {
             steps {
             sh '''
             sudo kubectl apply -f was.yml
+            sudo kubectl apply -f web.yml
             '''    
             }
         }
