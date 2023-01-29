@@ -65,9 +65,14 @@ spec:
           volumeMounts:
           - name: web-conf
             mountPath: /etc/nginx/conf.d
+          - name: nfs-volume-web
+            mountPath: /usr/share/nginx/html
           ports:
           - containerPort: 80
       volumes:
       - name: web-conf
         configMap:
           name: web-cm
+      - name: nfs-volume-web
+        persistentVolumeClaim:
+          claimName: project-web-pvc

@@ -64,3 +64,10 @@ spec:
             secretKeyRef:
               name: db-secret
               key: DB_PASSWORD
+        volumeMounts:
+        - name: nfs-volume-was
+          mountPath: /usr/local/tomcat/webapps
+      volumes:
+        - name: nfs-volume-was
+          persistentVolumeClaim:
+            claimName: project-was-pvc
