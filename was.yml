@@ -17,10 +17,10 @@ metadata:
 spec:
   ports:
   - name: was-svc
-    port: 8080 #Port number of the Service
-    targetPort: 8080  #Port number of container exposed
+    port: 8080
+    targetPort: 8080
   selector:
-    app: was   #Service selected pod with tag app: myweb
+    app: was
   type: ClusterIP
 ---
 apiVersion: apps/v1
